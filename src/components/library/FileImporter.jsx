@@ -67,24 +67,31 @@ export default function FileImporter({ isOpen, onClose }) {
   };
 
   // Generate offline synthetic track
-  const handleGenerateSample = async () => {
+  const handleGenerateSample = async (style = 'ambient') => {
     setIsProcessing(true);
-    setProgress({ current: 1, total: 1, fileName: 'Synthesizing offline audio...' });
+    const isSynthwave = style === 'synthwave';
+    const trackTitle = isSynthwave ? 'Neon Horizon (Synthwave Demo)' : 'Celestial Reverie (Ambient Demo)';
+    const trackArtist = isSynthwave ? 'Retro Pulse Wave' : 'TuneFlow Synthesizer';
+    const trackAlbum = isSynthwave ? 'Cyber Arcade 1984' : 'Offline Echoes';
+    const trackGenre = isSynthwave ? 'Synthwave' : 'Ambient';
+
+    setProgress({ current: 1, total: 1, fileName: `Synthesizing ${trackTitle}...` });
     try {
       const synth = await generateSyntheticTrack({
-        title: 'Celestial Reverie',
-        artist: 'TuneFlow Ambient Synthesizer',
-        duration: 12,
+        title: trackTitle,
+        artist: trackArtist,
+        style,
+        duration: isSynthwave ? 14 : 12,
       });
 
       const songRecord = {
         id: generateId(),
-        title: 'Celestial Reverie (Offline Demo)',
-        artist: 'TuneFlow Synthesizer',
-        album: 'Offline Echoes',
-        genre: 'Ambient',
+        title: trackTitle,
+        artist: trackArtist,
+        album: trackAlbum,
+        genre: trackGenre,
         duration: synth.duration,
-        fileName: 'celestial-reverie-demo.wav',
+        fileName: `${trackTitle.toLowerCase().replace(/[^a-z0-9]/g, '-')}.wav`,
         fileSize: synth.blob.size,
         mimeType: 'audio/wav',
         audioBlob: synth.blob,
@@ -94,7 +101,7 @@ export default function FileImporter({ isOpen, onClose }) {
 
       await saveSong(songRecord);
       await loadLibrary();
-      toast.success('Generated offline sample track!');
+      toast.success(`Generated "${trackTitle}" offline track!`);
       onClose();
     } catch (e) {
       console.error('Sample generation failed:', e);
@@ -210,26 +217,37 @@ export default function FileImporter({ isOpen, onClose }) {
               onChange={(e) => handleFiles(e.target.files)}
             />
 
-            {/* Quick Actions */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => folderInputRef.current?.click()}
-                className="flex items-center justify-center gap-2 p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 text-slate-200 text-sm font-medium transition-all cursor-pointer"
-              >
-                <FolderUp className="w-4 h-4 text-purple-400" />
-                Import Music Folder
-              </button>
+            {/* Folder Import Button */}
+            <button
+              type="button"
+              onClick={() => folderInputRef.current?.click()}
+              className="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 text-slate-200 text-sm font-medium transition-all cursor-pointer"
+            >
+              <FolderUp className="w-4 h-4 text-purple-400" />
+              Import Music Folder
+            </button>
 
-              <button
-                type="button"
-                onClick={handleGenerateSample}
-                className="flex items-center justify-center gap-2 p-3 rounded-xl bg-purple-950/30 hover:bg-purple-900/40 border border-purple-800/50 text-purple-200 text-sm font-medium transition-all cursor-pointer"
-                title="Generates a local synthesized WAV demo track right in your browser"
-              >
-                <Sparkles className="w-4 h-4 text-amber-400" />
-                Generate Demo Track
-              </button>
+            {/* Instant Offline Demo Tracks */}
+            <div className="pt-2 border-t border-slate-800">
+              <p className="text-xs text-slate-400 mb-2 font-medium">Don't have music files on hand? Try an offline synthesized demo:</p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleGenerateSample('ambient')}
+                  className="flex items-center justify-center gap-1.5 p-2.5 rounded-xl bg-purple-950/30 hover:bg-purple-900/40 border border-purple-800/50 text-purple-200 text-xs font-semibold transition-all cursor-pointer"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                  Ambient Demo
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleGenerateSample('synthwave')}
+                  className="flex items-center justify-center gap-1.5 p-2.5 rounded-xl bg-cyan-950/30 hover:bg-cyan-900/40 border border-cyan-800/50 text-cyan-200 text-xs font-semibold transition-all cursor-pointer"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                  Synthwave Demo
+                </button>
+              </div>
             </div>
           </>
         )}
@@ -237,4 +255,3 @@ export default function FileImporter({ isOpen, onClose }) {
     </Modal>
   );
 }
-

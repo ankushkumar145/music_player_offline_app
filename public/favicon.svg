@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="tf-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1035" />
+      <stop offset="50%" stop-color="#0e1017" />
+      <stop offset="100%" stop-color="#0a0b10" />
+    </linearGradient>
+    <linearGradient id="tf-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="50%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#8b5cf6" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded rect -->
+  <rect width="512" height="512" rx="128" fill="url(#tf-bg)" />
+  <rect width="504" height="504" x="4" y="4" rx="124" fill="none" stroke="url(#tf-glow)" stroke-width="3" stroke-opacity="0.3" />
+
+  <!-- Center Vinyl / Soundwave Emblem -->
+  <g transform="translate(256, 256)" filter="url(#shadow)">
+    <!-- Outer sound ring -->
+    <circle r="160" fill="none" stroke="url(#tf-glow)" stroke-width="4" stroke-opacity="0.25" stroke-dasharray="12 12" />
+    <!-- Secondary groove ring -->
+    <circle r="120" fill="none" stroke="url(#tf-glow)" stroke-width="3" stroke-opacity="0.4" />
+    
+    <!-- Central Disc -->
+    <circle r="90" fill="#141622" stroke="url(#tf-glow)" stroke-width="5" />
+
+    <!-- Waveform Bars inside disc -->
+    <g fill="url(#tf-glow)">
+      <!-- Wave bars -->
+      <rect x="-60" y="-20" width="8" height="40" rx="4" />
+      <rect x="-42" y="-36" width="8" height="72" rx="4" />
+      <rect x="-24" y="-55" width="8" height="110" rx="4" />
+      <rect x="-6" y="-70" width="12" height="140" rx="6" />
+      <rect x="16" y="-45" width="8" height="90" rx="4" />
+      <rect x="34" y="-28" width="8" height="56" rx="4" />
+      <rect x="52" y="-12" width="8" height="24" rx="4" />
+    </g>
+
+    <!-- Center Play Triangle Accent -->
+    <circle r="22" fill="#8b5cf6" opacity="0.9" />
+    <polygon points="-6,-10 -6,10 10,0" fill="#ffffff" />
+  </g>
+</svg>

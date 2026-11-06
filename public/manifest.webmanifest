@@ -1,0 +1,61 @@
+{
+  "name": "TuneFlow — Personal Offline Music Player",
+  "short_name": "TuneFlow",
+  "description": "Personal, offline-first music player with persistent local device storage and zero cloud streaming.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0c0d12",
+  "theme_color": "#0c0d12",
+  "categories": ["music", "audio", "entertainment", "utilities"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "All Songs",
+      "short_name": "Songs",
+      "description": "View all offline songs",
+      "url": "/songs",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Playlists",
+      "short_name": "Playlists",
+      "description": "Open your playlists",
+      "url": "/playlists",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Search",
+      "short_name": "Search",
+      "description": "Search local music library",
+      "url": "/search",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
